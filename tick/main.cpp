@@ -3,6 +3,8 @@
 #include <string>
 #include <chrono>
 
+#include "CommandHandler.h"
+
 using namespace std;
 
 void pause()
@@ -13,15 +15,21 @@ void pause()
 
 int main(int argc, char** argv)
 {
+	tick::CommandHandler handler;
+	
 	while (true)
 	{
-		string command;
-		string timerName;
-		
-		pause();
-		break;
+		cout << "Enter command: ";
+
+		string cmdLine;
+		getline(cin, cmdLine);
+
+		if (cmdLine == "exit") {
+			break;
+		}
+
+		handler.handle(cmdLine);
 	}
 
-	pause();
 	return 0;
 }
