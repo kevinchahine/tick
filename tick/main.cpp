@@ -4,10 +4,11 @@
 #include <chrono>
 
 #include "CommandHandler.h"
+#include "DeviceManager.h"
 
 using namespace std;
 
-void pause()
+void stop()
 {
 	cout << "Press any key...";
 	cin.get();
@@ -15,7 +16,9 @@ void pause()
 
 int main(int argc, char** argv)
 {
-	tick::CommandHandler handler;
+	tick::DeviceManager devices;
+
+	tick::CommandHandler handler(devices);
 	
 	while (true)
 	{
@@ -28,7 +31,13 @@ int main(int argc, char** argv)
 			break;
 		}
 
+		// 1.) --- Load saved data ---
+
+		// 2.) --- Handle Commands ---
 		handler.handle(cmdLine);
+
+		// 3.) --- Store data back to file ---
+
 	}
 
 	return 0;

@@ -1,8 +1,10 @@
 #include "CommandHandler.h"
 
 #include <algorithm>
+#include <string>
 
 #include <boost/program_options.hpp>
+#include <boost/algorithm/string.hpp>					// break this down
 #include <boost/algorithm/string/split.hpp>				// for boost::split
 #include <boost/algorithm/string/classification.hpp>	// for boost::is_any_of
 
@@ -11,89 +13,21 @@ using namespace std;
 
 namespace tick
 {
-	CommandHandler::CommandHandler() :
-		desc("commands"),
-		showDesc("show"),
-		newDesc("new"),
-		deleteDesc("delete"),
-		startDesc("start"),
-		pauseDesc("pause"),
-		stopDesc("stop"),
-		switchDesc("switch"),
-		setDesc("set")
+	CommandHandler::CommandHandler(DeviceManager& devices) :
+		devicesPtr(&devices)
 	{
-		desc.add_options()
-			("help", "Show help message")
-			("show", po::value<string>(), "Show existing devices")
-			("add", po::value<string>(), "Create new device")
-			("delete", po::value<string>(), "Delete existing device")
-			("start", po::value<string>(), "Start a device")
-			("pause", po::value<string>(), "Pause a device")
-			("stop", po::value<string>(), "Same as pause")
-			("switch", po::value<string>(), "Pauses one device and resumes another")
-			("set", po::value<string>(), "Sets time of a device")
-			;
-
-		showDesc.add_options()
-		;
-
-		newDesc.add_options()
-		;
-		
-		showDesc.add_options()
-		;
-		
-		newDesc.add_options()
-		;
-		
-		deleteDesc.add_options()
-		;
-		
-		startDesc.add_options()
-		;
-		
-		pauseDesc.add_options()
-		;
-		
-		stopDesc.add_options()
-		;
-		
-		switchDesc.add_options()
-		;
-		
-		setDesc.add_options()
-		;
 	}
-	
+
 	void CommandHandler::handle(int argc, const char** argv)
 	{
-		po::variables_map vm;
-		po::store(po::parse_command_line(argc, argv, desc), vm);
-		po::notify(vm);
+		vector<string> tokens;
+		tokens.reserve(argc);
 
-		//cout << "---" << endl;
-		//for (const auto& elem : vm) {
-		//	cout << vm.size() << ' ' << elem.first << '-' << endl;
-		//}
-
-		// --- Help ---
-		if (vm.count("help") || vm.size() <= 0) {
-			cout << desc << endl;
-			return;
+		for (int i = 0; i < argc; i++) {
+			tokens.emplace_back(argv[i]);
 		}
 
-		// --- Show ---
-
-	}
-
-	void CommandHandler::handle(const std::vector<std::string>& args)
-	{
-		vector<const char*> tokenPtrs;
-		tokenPtrs.reserve(args.size());
-
-		transform(args.begin(), args.end(), back_inserter(tokenPtrs), [](const string& tok) { return tok.data(); });
-
-		this->handle(tokenPtrs.size(), tokenPtrs.data());
+		handle(tokens);
 	}
 
 	void CommandHandler::handle(const std::string& cmdLine)
@@ -105,4 +39,274 @@ namespace tick
 
 		handle(tokens);
 	}
+	
+	void CommandHandler::handle(const std::vector<std::string>& args)
+	{
+		if (args.size()) {
+			handle1(args.begin(), args.end());
+		}
+		else {
+			cout << "Error: No args" << endl;
+		}
+	}
+
+	void CommandHandler::handle1(const std::vector<std::string>::const_iterator begin, const std::vector<std::string>::const_iterator end)
+	{
+		const string& first = *begin;
+
+		if (boost::iequals(first, "tick")) {
+			handle2(begin + 1, end);
+		}
+		else {
+			handle2(begin, end);
+		}
+	}
+
+	void CommandHandler::handle2(const std::vector<std::string>::const_iterator begin, const std::vector<std::string>::const_iterator end)
+	{
+		if (begin == end) {
+			throw exception("Expected a 2nd argument");
+		}
+
+		string second = *begin;
+		boost::algorithm::to_lower(second);
+
+		if (second == "make") {
+			handleMake(begin + 1, end);
+		}
+		else if (second == "start") {
+			handleStart(begin + 1, end);
+		}
+		else if (second == "stop") {
+			handleStop(begin + 1, end);
+		}
+		else if (second == "set") {
+			handleSet(begin + 1, end);
+		}
+		else if (second == "remove" || second == "rm") {
+			handleRemove(begin + 1, end);
+		}
+		else if (second == "restore") {
+			handleRestore(begin + 1, end);
+		}
+		else if (second == "switch") {
+			// TODO: for a later version
+		}
+		else if (second == "show") {
+			handleShow(begin + 1, end);
+		}
+		else {
+			cout << "Unknown 2nd argument: \'" << second << "\'\n";
+		}
+	}
+
+	void CommandHandler::handleMake(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+		if (begin == end) {
+			// No arguments
+			// Nothing to do here
+			cout << "Error: No device specified. Ex: timer, stopwatch, ...\n";
+			return;
+		}
+		else {
+			// --- Determine the Device Type ---
+			string device = *begin;
+			boost::algorithm::to_lower(device);
+
+			if (device == "timer") {
+				if (begin + 1 == end) {
+					// No names given
+					devicesPtr->timers().insert();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->timers().insert(*it, Timer{});
+					}
+				}
+			}
+			else if (device == "stopwatch") {
+				if (begin + 1 == end) {
+					// No names given. Use default name
+					///devicesPtr->stopwatches().insert();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->stopwatches().insert(*it, StopWatch{});
+					}
+				}
+			}
+			else if (device == "alarm") {
+			}
+			else if (device == "worldclock") {
+			}
+			else {
+				cout << "Error: Unexpected device type: " << device << endl;
+				return;
+			}
+		}
+	}
+
+	void CommandHandler::handleStart(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+		if (begin == end) {
+			// No arguments
+			// Nothing to do here
+			cout << "Error: No device specified. Ex: timer, stopwatch, ...\n";
+			return;
+		}
+		else {
+			// --- Determine the Device Type ---
+			string device = *begin;
+			boost::algorithm::to_lower(device);
+
+			if (device == "timer") {
+				if (begin + 1 == end || *(begin + 1) == "all") {
+					// No names given
+					devicesPtr->timers().startAll();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->timers().start(*it);
+					}
+				}
+			}
+			else if (device == "stopwatch") {
+				if (begin + 1 == end) {
+					// No names given. Use default name
+					///devicesPtr->stopwatches().start();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						//devicesPtr->stopwatches().start(*it, StopWatch{});
+					}
+				}
+			}
+			else if (device == "alarm") {
+			}
+			else if (device == "worldclock") {
+			}
+			else {
+				cout << "Error: Unexpected device type: " << device << endl;
+				return;
+			}
+		}
+	}
+
+	void CommandHandler::handleStop(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+		if (begin == end) {
+			// No arguments
+			// Nothing to do here
+			cout << "Error: No device specified. Ex: timer, stopwatch, ...\n";
+			return;
+		}
+		else {
+			// --- Determine the Device Type ---
+			string device = *begin;
+			boost::algorithm::to_lower(device);
+
+			if (device == "timer") {
+				if (begin + 1 == end || *(begin + 1) == "all") {
+					// No names given
+					devicesPtr->timers().stopAll();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->timers().stop(*it);
+					}
+				}
+			}
+			else if (device == "stopwatch") {
+				if (begin + 1 == end) {
+					// No names given. Use default name
+					///devicesPtr->stopwatches().stop();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						//devicesPtr->stopwatches().stop(*it, StopWatch{});
+					}
+				}
+			}
+			else if (device == "alarm") {
+			}
+			else if (device == "worldclock") {
+			}
+			else {
+				cout << "Error: Unexpected device type: " << device << endl;
+				return;
+			}
+		}
+	}
+
+	void CommandHandler::handleSet(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+	}
+
+	void CommandHandler::handleRemove(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+	}
+
+	void CommandHandler::handleRestore(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+	}
+
+	void CommandHandler::handleShow(
+		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator end)
+	{
+		if (begin == end) {
+			// No arguments
+			// Show everything
+			cout << devicesPtr->timers() << endl;
+		}
+		else {
+			// --- Determine the Device Type ---
+			string device = *begin;
+			boost::algorithm::to_lower(device);
+
+			if (device == "timer") {
+				if (begin + 1 == end) {
+					// Show all timers
+					cout << devicesPtr->timers() << endl;
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->timers().insert(*it, Timer{});
+					}
+				}
+			}
+			else if (device == "stopwatch") {
+				if (begin + 1 == end) {
+					// Show all StopWatches
+					//devicesPtr->stopwatches().insert();
+				}
+				else {
+					for (auto it = begin + 1; it != end; ++it) {
+						devicesPtr->stopwatches().insert(*it, StopWatch{});
+					}
+				}
+			}
+			else if (device == "alarm") {
+			}
+			else if (device == "worldclock") {
+			}
+			else {
+				cout << "Error: Unexpected device type: " << device << endl;
+				return;
+			}
+		}
+	}
+
 } // namespace tick

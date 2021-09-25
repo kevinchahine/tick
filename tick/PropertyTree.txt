@@ -1,0 +1,26 @@
+
+# JSON Example:
+{
+	"tick":
+	{
+		"last_save": 2021-24-9 22:32:00			# Some data_time in a posix syntax
+		"session name": "Name of My Session"	# I don't know
+		"timers":
+		[
+			{ "lastResumed": 000012341324, "expiry": 1111, "state": "RESUMED" },
+			{ "lastResumed": 222222222222, "expiry": 2222, "state": "PAUSED" },
+		],
+		"stopwatches":
+		[
+			# ...
+		],
+		"alarms":
+		[
+			# ...
+		],
+		"worldclocks":
+		[
+			# ...
+		],
+	}
+}

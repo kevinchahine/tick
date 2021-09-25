@@ -76,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,6 +88,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,6 +102,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,6 +118,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,15 +129,30 @@
   <ItemGroup>
     <ClCompile Include="ClockBase.cpp" />
     <ClCompile Include="CommandHandler.cpp" />
+    <ClCompile Include="DeviceBase.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="StopWatchManager.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClockBase.h" />
     <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="DeviceBase.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="StopWatchManager.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CommandExamples.txt" />
+    <Text Include="DesignDetails.txt" />
+    <Text Include="FeaturesAndVersions.txt" />
+    <Text Include="PropertyTree.txt" />
+    <Text Include="TrashBin.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "DeviceManager.h"
+
 namespace tick
 {
 	// Parses and handles command line arguments.
@@ -26,29 +28,76 @@ namespace tick
 	class CommandHandler
 	{
 	public:
-		CommandHandler();
-		CommandHandler(const CommandHandler &) = default;
+		CommandHandler(DeviceManager & devices);
+		CommandHandler(const CommandHandler&) = default;
 		CommandHandler(CommandHandler&&) noexcept = default;
 		~CommandHandler() noexcept = default;
 		CommandHandler& operator=(const CommandHandler&) = default;
 		CommandHandler& operator=(CommandHandler&&) noexcept = default;
 
 		void handle(int argc, const char** argv);
-		void handle(const std::vector<std::string>& args);
 		void handle(const std::string& cmdLine);
+		void handle(const std::vector<std::string>& args);
 
 	private:
-		// Main command description
-		boost::program_options::options_description desc;
+		// Converts each string from its nickname to its regular name
+		void solveAliases(const std::vector<std::string>& args);
 
-		// Sub command descriptions
-		boost::program_options::options_description showDesc;		
-		boost::program_options::options_description newDesc;		
-		boost::program_options::options_description deleteDesc;		
-		boost::program_options::options_description startDesc;		
-		boost::program_options::options_description pauseDesc;		
-		boost::program_options::options_description stopDesc;		
-		boost::program_options::options_description switchDesc;		
-		boost::program_options::options_description setDesc;	
+		// Handles 1st command argument (tick)
+		void handle1(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+
+		// Handles 2nd command argument (make, set, show, ...)
+		void handle2(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+
+		void handleMake(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+
+		void handleStart(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+		
+		void handleStop(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+		
+		void handleSet(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+		
+		void handleRemove(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+		
+		void handleRestore(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+		
+		void handleShow(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+	private:
+		//// Main command description
+		//boost::program_options::options_description desc;
+		//
+		//// Sub command descriptions
+		//boost::program_options::options_description showDesc;		
+		//boost::program_options::options_description newDesc;		
+		//boost::program_options::options_description deleteDesc;		
+		//boost::program_options::options_description startDesc;		
+		//boost::program_options::options_description pauseDesc;		
+		//boost::program_options::options_description stopDesc;		
+		//boost::program_options::options_description switchDesc;		
+		//boost::program_options::options_description setDesc;	
+
+		// Points to the DeviceManager object that stores all the clock 
+		// devices. 
+		// Does not need to be deallocated.
+		// Can sometimes be null.
+		DeviceManager* devicesPtr = nullptr;
 	};
 } // namespace tick

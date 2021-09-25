@@ -12,7 +12,7 @@ namespace tick
 		state = STATE::PAUSED;
 	}
 
-	void StopWatch::pause()
+	void StopWatch::stop()
 	{
 		if (state == STATE::RESUMED) {
 			m_elapsed += (high_resolution_clock::now() - lastResumed);
@@ -21,7 +21,7 @@ namespace tick
 		}
 	}
 
-	void StopWatch::resume()
+	void StopWatch::start()
 	{
 		if (state == STATE::PAUSED) {
 			lastResumed = high_resolution_clock::now();

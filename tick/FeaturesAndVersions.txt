@@ -1,0 +1,13 @@
+v0.0
+	Basic nonfunctional program.
+
+v1.0
+	Supports command line interface
+	multiple timers
+	multiple stopwatches
+
+v2.0
+
+v3.0
+
+v4.0

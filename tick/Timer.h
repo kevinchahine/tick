@@ -3,15 +3,17 @@
 #include <iostream>
 #include <chrono>
 
+#include "DeviceBase.h"
+
 namespace tick
 {
-	class Timer
+	class Timer : public DeviceBase
 	{
 	public:
 
-		void pause();
+		virtual void start() override;
 
-		void resume();
+		virtual void stop() override;
 
 		bool is_paused() const { return state == STATE::PAUSED; }
 
@@ -26,6 +28,10 @@ namespace tick
 		std::chrono::nanoseconds expires_from_now() const;
 
 		void add_time(const std::chrono::nanoseconds & duration);
+
+		virtual boost::property_tree::ptree serialize() const override;
+
+		virtual void parse(const boost::property_tree::ptree& tree) override;
 
 	protected:
 
@@ -45,3 +51,5 @@ namespace tick
 		} state = STATE::PAUSED;
 	};
 } // namespace tick
+
+std::ostream& operator<<(std::ostream& os, const tick::Timer& timer);

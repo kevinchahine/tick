@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Notes">
+      <UniqueIdentifier>{eff48c4f-c2fd-484d-943a-4699578f8899}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClockBase.cpp">
@@ -30,6 +33,18 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatchManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClockBase.h">
@@ -44,5 +59,34 @@
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatchManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CommandExamples.txt">
+      <Filter>Notes</Filter>
+    </Text>
+    <Text Include="FeaturesAndVersions.txt">
+      <Filter>Notes</Filter>
+    </Text>
+    <Text Include="TrashBin.txt">
+      <Filter>Notes</Filter>
+    </Text>
+    <Text Include="DesignDetails.txt">
+      <Filter>Notes</Filter>
+    </Text>
+    <Text Include="PropertyTree.txt">
+      <Filter>Notes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

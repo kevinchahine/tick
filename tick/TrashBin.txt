@@ -1,0 +1,5 @@
+Stores devices that have been removed
+Objects in trashbin can be restored using the restore command
+to perminantly delete objects, they have to be manually
+	deleted from json files when program is not running.
+

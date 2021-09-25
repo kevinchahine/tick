@@ -1,0 +1,16 @@
+=== TICK ===
+
+3 types of uses:
+	command-line (no blocking session)
+	session (blocking call)
+	daemon (good for long term interupt handling, if system interupts can't be figured out)
+
+1.) Start up 
+	Parameters are parsed
+
+2.) Commands are handled
+
+3.) 
+	3-1.) If command-line only, save data and close
+	3-2.) If session, loop back
+

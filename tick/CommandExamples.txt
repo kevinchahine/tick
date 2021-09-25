@@ -1,0 +1,72 @@
+
+tick	# Opens a tick session
+
+make timer <name>+		# Creates 1 or more timers (paused)
+make stopwatch <name>+	# Creates 1 or more stopwatches (paused)
+make alarm <name>+		# Creates 1 or more alarms (inactive)
+make worldclock <name>+	# Creates 1 or more world clocks (default to local time zone)
+
+start timer <name>+
+start stopwatch <name>+
+xxx start alarm
+xxx start worldclock
+
+stop timer <name>+
+stop stopwatch <name>+
+
+# ----------------- SET ---------------
+set timer[s] <name>+ <duration>
+set stopwatch[s] <name>+ <duration>
+set alarm[s] <name>+ <time of day | date>
+set worldclock[s] <name>+ <time of day>
+
+# ----------------- REMOVE ------------
+# --- Deactivates device and stores in trashbin ---
+remove|rm timer <name>+
+remove|rm stopwatch <name>+
+remove|rm alarm <name>+
+remove|rm worldclock <name>+
+
+# ----------------- RESTORE -----------
+restore timer <name>+
+restore stopwatch <name>+
+restore alarm <name>+
+restore worldclock <name>+
+
+# ----------------- SWITCH (For later versions) ------------
+# --- Sets the current device ---
+switch timer <name>+
+switch stopwatch <name>+
+switch alarm <name>+
+switch worldclock <name>+
+
+# ----------------- SHOW --------------
+show					# shows all devices
+show timer[s]			# shows all timers
+show stopwatche[s]		# shows all stopwatches
+show alarm[s]			# shows all alarms
+show worldclock[s]		# shows all world clocks
+show timer[s] <name>+
+show stopwatch[s] <name>+
+show alarm[s] <name>+
+show worldclocks[s] <name>+
+
+# ----------------- DURATION ----------
+hh:mm:ss
+5h 3m 2s
+
+------------------ Aliases -------------------
+rm	remove
+
+sw	stopwatch
+tm	timer
+al	alarm
+wc	worldclock
+
+------------------ Reserved Keywords ---------
+commands:
+	tick, make, start, stop, show
+
+devices:
+	timer, stopwatch, alarm, worldclock
+	(and their aliases)
