@@ -134,6 +134,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StopWatchManager.cpp" />
+    <ClCompile Include="TestPropertyTree.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StopWatchManager.h" />
+    <ClInclude Include="TestPropertyTree.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
   </ItemGroup>

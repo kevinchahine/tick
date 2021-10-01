@@ -88,7 +88,7 @@ namespace tick
 				timeSinceEpoch = op.value();
 			}
 			else {
-				cout << "Error: Corrupt property tree. Missing value for lastResumed. " 
+				cout << "Error: Corrupt property tree. Missing value for lastResumed. "
 					<< "Using default of now() instead" << endl;
 
 				timeSinceEpoch = chrono::high_resolution_clock::now().time_since_epoch().count();
@@ -123,12 +123,12 @@ namespace tick
 					<< "Using default of PAUSED instead" << endl;
 			}
 
-			const string& stateVal = op.value_or("paused");
+			const string& stateVal = op.value_or("PAUSED");
 
-			if (stateVal == "paused") {
+			if (stateVal == "PAUSED") {
 				state = STATE::PAUSED;
 			}
-			else if (stateVal == "resumed") {
+			else if (stateVal == "RESUMED") {
 				state = STATE::RESUMED;
 			}
 			else {
@@ -137,8 +137,6 @@ namespace tick
 			}
 		}
 	}
-
-
 } // namespace tick
 
 std::ostream& operator<<(std::ostream& os, const tick::Timer& timer)

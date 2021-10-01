@@ -16,6 +16,9 @@
     <Filter Include="Notes">
       <UniqueIdentifier>{eff48c4f-c2fd-484d-943a-4699578f8899}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{8541b59f-b3e8-40df-b821-90b146ec6b4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClockBase.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="DeviceBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestPropertyTree.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClockBase.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="DeviceBase.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPropertyTree.h">
+      <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
