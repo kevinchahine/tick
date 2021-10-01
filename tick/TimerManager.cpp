@@ -2,6 +2,8 @@
 
 #include <iomanip>
 
+#include <boost/property_tree/ptree.hpp>
+
 using namespace std;
 
 namespace tick
@@ -24,6 +26,20 @@ namespace tick
 	void TimerManager::stopAll()
 	{
 		baseMethodAll(&Timer::stop);
+	}
+
+	boost::property_tree::ptree TimerManager::serialize() const
+	{
+		boost::property_tree::ptree tree;
+
+		cout << __FUNCTION__ << " Not implemented\n";
+
+		return tree;
+	}
+
+	void TimerManager::parse(const boost::property_tree::ptree& tree)
+	{
+		cout << "Not implemented12352" << endl;
 	}
 
 	void TimerManager::baseMethod(void(Timer::*methodPtr)(), const std::string& name)

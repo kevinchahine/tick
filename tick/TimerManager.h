@@ -75,6 +75,9 @@ namespace tick
 		void stop(const std::string& name);
 		void stopAll();
 
+		boost::property_tree::ptree serialize() const;
+		void parse(const boost::property_tree::ptree& tree);
+
 	private:
 		// Base method which other methods can call.
 		// Most methods have very similar internal implementations.

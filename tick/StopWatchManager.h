@@ -4,6 +4,7 @@
 #include <map>
 
 #include "StopWatch.h"
+#include <boost/property_tree/ptree_fwd.hpp>
 
 namespace tick
 {
@@ -46,6 +47,10 @@ namespace tick
 		//{
 		//	insert(StopWatch{});
 		//}
+
+		boost::property_tree::ptree serialize() const;
+		void parse(const boost::property_tree::ptree& tree);
+
 	private:
 
 	};

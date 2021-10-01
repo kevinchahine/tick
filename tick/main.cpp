@@ -17,8 +17,8 @@ void stop()
 
 int main(int argc, char** argv)
 {
-	//tick::DeviceManager devices;
-	//
+	tick::DeviceManager devices;
+	
 	//tick::CommandHandler handler(devices);
 	//
 	//while (true)

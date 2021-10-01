@@ -3,6 +3,8 @@
 #include "TimerManager.h"
 #include "StopWatchManager.h"
 
+#include <boost/filesystem/path.hpp>
+
 namespace tick
 {
 	class DeviceManager
@@ -14,6 +16,9 @@ namespace tick
 
 		StopWatchManager& stopwatches() { return m_stopwatches; }
 		const StopWatchManager& stopwatches() const { return m_stopwatches; }
+
+		void write(const boost::filesystem::path& filename);
+		void read(const boost::filesystem::path& filename);
 
 	private:
 		TimerManager m_timers;
