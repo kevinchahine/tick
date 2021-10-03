@@ -21,52 +21,29 @@ namespace tick
 		}
 		
 		// Inserts a timer and gives it a default name
-		void insert(Timer&& timer)
+		void insert(const Timer& timer)
 		{
 			// 1.) --- Search for an unused name ---
-			std::string name = "timer0";	// TODO: IMplement this
+			std::string name = findUnusedName();
 
 			// 2.) 
 			this->insert(
 				std::move(name), 
-				std::forward<Timer>(timer));
+				timer);
 		}
 
 		// Inserts a default constructed timer with a specified name
 		void insert(std::string&& name)
 		{
-			insert(
-				std::forward<std::string>(name),
-				Timer{});
+			insert(std::move(name), Timer{});
 		}
 
 		// Insert a default constructed Timer with a default name
 		void insert()
 		{
-			const int DEFAULT_NAME_LIMIT = 100;
-			
-			std::string base = "timer";
+			std::string timerName = findUnusedName();
 
-			int i;
-			for (i = 0; i < DEFAULT_NAME_LIMIT; i++) {
-				std::string timerName = base + std::to_string(i);
-
-				auto it = this->find(timerName);
-
-				if (it == this->end()) {
-					// This name is free. Create and name a timer after it.
-					insert(std::move(timerName));
-					break;
-				}
-				else {
-					// This name is already taken
-					continue;	// Try another name
-				}
-			}
-
-			if (i >= DEFAULT_NAME_LIMIT) {
-				std::cout << "Error: Exceeded count of default timer names." << std::endl;
-			}
+			insert(std::move(timerName));
 		}
 
 		void start(const std::string& name);
@@ -91,6 +68,8 @@ namespace tick
 
 		// See comments for baseMethod()
 		void baseMethodAll(void (Timer::*methodPtr)());
+
+		std::string findUnusedName() const;
 	};
 } // namespace tick
 

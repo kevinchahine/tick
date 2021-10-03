@@ -5,7 +5,9 @@
 
 #include "CommandHandler.h"
 #include "DeviceManager.h"
+
 #include "TestPropertyTree.h"
+#include "TestTimerManager.h"
 
 using namespace std;
 
@@ -41,7 +43,9 @@ int main(int argc, char** argv)
 	//
 	//}
 
-	tick::test::timerPropertyTree();
+	//tick::test::timerPropertyTree();
+	tick::test::timerManagerInsert();
+	tick::test::timerManagerPropertyTree();
 
 	return 0;
 }

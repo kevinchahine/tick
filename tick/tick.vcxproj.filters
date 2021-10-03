@@ -19,65 +19,77 @@
     <Filter Include="Test">
       <UniqueIdentifier>{8541b59f-b3e8-40df-b821-90b146ec6b4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{1169c53e-872b-4238-b843-6be0a992ec79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{9edfbc89-063c-4ed5-8a8b-8fdfda2b0adb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClockBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CommandHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StopWatch.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="TestPropertyTree.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DeviceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StopWatchManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ClockBase.cpp">
+      <Filter>Devices</Filter>
     </ClCompile>
     <ClCompile Include="DeviceBase.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Devices</Filter>
     </ClCompile>
-    <ClCompile Include="TestPropertyTree.cpp">
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatchManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTimerManager.cpp">
       <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClockBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CommandHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StopWatch.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TestPropertyTree.h">
+      <Filter>Test</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DeviceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StopWatchManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ClockBase.h">
+      <Filter>Devices</Filter>
     </ClInclude>
     <ClInclude Include="DeviceBase.h">
-      <Filter>Header Files</Filter>
+      <Filter>Devices</Filter>
     </ClInclude>
-    <ClInclude Include="TestPropertyTree.h">
+    <ClInclude Include="StopWatch.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatchManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTimerManager.h">
       <Filter>Test</Filter>
     </ClInclude>
   </ItemGroup>

@@ -129,7 +129,7 @@ namespace tick
 			else if (device == "stopwatch") {
 				if (begin + 1 == end) {
 					// No names given. Use default name
-					///devicesPtr->stopwatches().insert();
+					devicesPtr->stopwatches().insert();
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {

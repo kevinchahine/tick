@@ -1,11 +1,13 @@
 #pragma once
 
+#include "DeviceBase.h"
+
 #include <iostream>
 #include <chrono>
 
 namespace tick
 {
-	class StopWatch
+	class StopWatch : public DeviceBase
 	{
 	public:
 		// Sets elapsed time to the one specified and pauses clock
@@ -20,6 +22,10 @@ namespace tick
 		bool is_resumed() const { return state == STATE::RESUMED; }
 
 		std::chrono::nanoseconds elapsed() const;
+
+		virtual boost::property_tree::ptree serialize() const override;
+		
+		virtual void parse(const boost::property_tree::ptree& tree) override;
 
 		friend std::ostream & operator<<(std::ostream & os, const StopWatch & sw);
 

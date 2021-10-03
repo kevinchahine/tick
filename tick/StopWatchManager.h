@@ -20,33 +20,59 @@ namespace tick
 					std::forward<SW_T>(stopwatch)));
 		}
 
-		//// Inserts a stopwatch and gives it a default name
-		//template<typename SW_T>
-		//void insert(SW_T&& stopwatch = StopWatch{})
-		//{
-		//	// 1.) --- Search for an unused name ---
-		//	std::string name = "stopwatch0";	// TODO: IMplement this
-		//
-		//	// 2.) 
-		//	this->insert(
-		//		std::move(name),
-		//		std::forward<SW_T>(stopwatch));
-		//}
-		//
-		//// Inserts a default constructed stopwatch with a specified name
-		//template<typename KEY_T>
-		//void insert(KEY_T&& name)
-		//{
-		//	insert(
-		//		std::forward<KEY_T>(name),
-		//		StopWatch{});
-		//}
+		// Inserts a stopwatch and gives it a default name
+		void insert(StopWatch&& stopwatch)
+		{
+			// 1.) --- Search for an unused name ---
+			std::string name = "stopwatch0";	// TODO: IMplement this
+		
+			// 2.) 
+			this->insert(
+				std::move(name),
+				std::forward<StopWatch>(stopwatch));
+		}
+		
+		// Inserts a default constructed stopwatch with a specified name
+		void insert(std::string&& name)
+		{
+			insert(
+				std::forward<std::string>(name),
+				StopWatch{});
+		}
 
 		// Insert a default constructed StopWatch with a default name
-		//void insert()
-		//{
-		//	insert(StopWatch{});
-		//}
+		void insert()
+		{
+			const int DEFAULT_NAME_LIMIT = 100;
+
+			std::string base = "stopwatch";
+
+			int i;
+			for (i = 0; i < DEFAULT_NAME_LIMIT; i++) {
+				std::string stopwatchName = base + std::to_string(i);
+
+				auto it = this->find(stopwatchName);
+
+				if (it == this->end()) {
+					// This name is free. Create and name a stopwatch after it.
+					insert(std::move(stopwatchName));
+				}
+				else {
+					// This name is already taken
+					continue;	// Try another name
+				}
+			}
+
+			if (i >= DEFAULT_NAME_LIMIT) {
+				std::cout << "Error: Exceeded count of default stopwatch names." << std::endl;
+			}
+		}
+
+		void start(const std::string& name);
+		void startAll();
+
+		void stop(const std::string& name);
+		void stopAll();
 
 		boost::property_tree::ptree serialize() const;
 		void parse(const boost::property_tree::ptree& tree);
