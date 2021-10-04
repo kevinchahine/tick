@@ -81,3 +81,5 @@ namespace tick
 
 	};
 } // namespace tick
+
+std::ostream& operator<<(std::ostream& os, const tick::StopWatchManager& manager);

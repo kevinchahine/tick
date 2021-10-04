@@ -20,34 +20,36 @@ void stop()
 
 int main(int argc, char** argv)
 {
-	tick::DeviceManager devices;
+	tick::DeviceManager devMan;
+	tick::FileManager fileMan;
 
-	//tick::CommandHandler handler(devices);
-	//
-	//while (true)
-	//{
-	//	cout << "Enter command: ";
-	//
-	//	string cmdLine;
-	//	getline(cin, cmdLine);
-	//
-	//	if (cmdLine == "exit") {
-	//		break;
-	//	}
-	//
-	//	// 1.) --- Load saved data ---
-	//
-	//	// 2.) --- Handle Commands ---
-	//	handler.handle(cmdLine);
-	//
-	//	// 3.) --- Store data back to file ---
-	//
-	//}
+	tick::CommandHandler handler(devMan);
+	
+	while (true)
+	{
+		cout << "Enter command: ";
+	
+		string cmdLine;
+		getline(cin, cmdLine);
+	
+		if (cmdLine == "exit") {
+			break;
+		}
+	
+		// 1.) --- Load saved data ---
+		fileMan.read(devMan);
+	
+		// 2.) --- Handle Commands ---
+		handler.handle(cmdLine);
+	
+		// 3.) --- Store data back to file ---
+		fileMan.write(devMan);
+	}
 
 	//tick::test::timerPropertyTree();
 	//tick::test::timerManagerInsert();
 	//tick::test::timerManagerPropertyTree();
-	tick::test::deviceManagerPT();
+	//tick::test::deviceManagerPT();
 
 	return 0;
 }

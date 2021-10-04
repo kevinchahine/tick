@@ -269,7 +269,7 @@ namespace tick
 		if (begin == end) {
 			// No arguments
 			// Show everything
-			cout << devicesPtr->timers() << endl;
+			cout << *devicesPtr << endl;
 		}
 		else {
 			// --- Determine the Device Type ---
@@ -290,7 +290,7 @@ namespace tick
 			else if (device == "stopwatch") {
 				if (begin + 1 == end) {
 					// Show all StopWatches
-					//devicesPtr->stopwatches().insert();
+					devicesPtr->stopwatches().insert();
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {

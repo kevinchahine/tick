@@ -2,6 +2,8 @@
 
 #include <boost/property_tree/ptree.hpp>
 
+#include <iomanip>
+
 namespace pt = boost::property_tree;
 
 using namespace std;
@@ -57,4 +59,21 @@ namespace tick
 			this->insert(name, sw);
 		}
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const tick::StopWatchManager& manager)
+{
+	auto flags = os.flags();
+
+	os << "Stop Watches:\n";
+
+	os << left;
+
+	for (const auto& pair : manager) {
+		os << setw(4) << '\0' << setw(10) << pair.first << setw(10) << pair.second << endl;
+	}
+
+	os.flags(flags);
+
+	return os;
 }

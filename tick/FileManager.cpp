@@ -21,8 +21,6 @@ namespace tick
 		pt::read_json(in, tree);
 		in.close();
 
-		pt::write_json(cout, tree);
-		
 		devMan.parse(tree);
 	}
 	

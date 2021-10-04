@@ -118,7 +118,7 @@ std::ostream& operator<<(std::ostream& os, const tick::TimerManager& manager)
 	os << left;
 
 	for (const auto& pair : manager) {
-		os << setw(10) << pair.first << setw(10) << pair.second << endl;
+		os << setw(4) << '\0' << setw(10) << pair.first << setw(10) << pair.second << endl;
 	}
 
 	os.flags(flags);

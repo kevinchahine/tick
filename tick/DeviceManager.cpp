@@ -45,3 +45,11 @@ namespace tick
 		}
 	}
 }
+
+std::ostream& operator<<(std::ostream& os, const tick::DeviceManager& devMan)
+{
+	os << devMan.timers() << endl
+		<< devMan.stopwatches() << endl;
+
+	return os;
+}

@@ -98,6 +98,7 @@ namespace tick
 		// devices. 
 		// Does not need to be deallocated.
 		// Can sometimes be null.
+		// TODO: Should we make this a reference?
 		DeviceManager* devicesPtr = nullptr;
 	};
 } // namespace tick
