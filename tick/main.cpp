@@ -5,6 +5,7 @@
 
 #include "CommandHandler.h"
 #include "DeviceManager.h"
+#include "FileManager.h"
 
 #include "TestPropertyTree.h"
 #include "TestTimerManager.h"
@@ -20,7 +21,7 @@ void stop()
 int main(int argc, char** argv)
 {
 	tick::DeviceManager devices;
-	
+
 	//tick::CommandHandler handler(devices);
 	//
 	//while (true)
@@ -44,8 +45,9 @@ int main(int argc, char** argv)
 	//}
 
 	//tick::test::timerPropertyTree();
-	tick::test::timerManagerInsert();
-	tick::test::timerManagerPropertyTree();
+	//tick::test::timerManagerInsert();
+	//tick::test::timerManagerPropertyTree();
+	tick::test::deviceManagerPT();
 
 	return 0;
 }

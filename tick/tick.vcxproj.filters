@@ -60,6 +60,9 @@
     <ClCompile Include="TestTimerManager.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandHandler.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="TestTimerManager.h">
       <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

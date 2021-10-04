@@ -8,34 +8,40 @@
 
 using namespace std;
 
+namespace pt = boost::property_tree;
+
 namespace tick
 {
-	void DeviceManager::write(const boost::filesystem::path& filename)
+	boost::property_tree::ptree DeviceManager::serialize() const
 	{
-		// 1.) --- Check to see if the file exists ---
-		if (boost::filesystem::exists(filename)) {
-			// 1-1.) --- If it exists, create a backup of it ---
-
-		}
-		else {
-			// 1-2.) --- If it does not exists create it ---
-
-		}
-
-		ofstream fileout(filename.string());
-
-		// 2.) --- Serialize all devices into one big property tree ---
-		boost::property_tree::ptree tree;
+		// 1.) --- Serialize all devices into separate property trees ---
 		boost::property_tree::ptree timersTree = m_timers.serialize();
 		boost::property_tree::ptree swTree = m_stopwatches.serialize();
 
+		// 2.) --- Combine into one big tree ---
+		boost::property_tree::ptree tree;
 		tree.put_child("Timers", move(timersTree));
 		tree.put_child("StopWatches", move(swTree));
 
-		// 3.) --- Convert the property tree into a JSON file ---
-		// 4.) --- Write to file ---
-		boost::property_tree::write_json(fileout, tree);
+		return tree;
+	}
+	
+	void DeviceManager::parse(const boost::property_tree::ptree& tree)
+	{
+		// 1.) --- Iterate 1st level for each device ---
+		for (const auto & it : tree) {
+			const string& device = it.first;
+			const pt::ptree& subtree = it.second;
 
-		fileout.close();
+			if (device == "Timers") {
+				this->m_timers.parse(subtree);
+			}
+			else if (device == "StopWatches") {
+				this->m_stopwatches.parse(subtree);
+			}
+			else {
+				cout << "Error: " << __FUNCTION__ << " unknown device" << endl;
+			}
+		}
 	}
 }

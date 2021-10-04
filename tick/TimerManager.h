@@ -37,6 +37,12 @@ namespace tick
 		{
 			insert(std::move(name), Timer{});
 		}
+		
+		// Inserts a default constructed timer with a specified name
+		void insert(const std::string& name)
+		{
+			insert(name, Timer{});
+		}
 
 		// Insert a default constructed Timer with a default name
 		void insert()

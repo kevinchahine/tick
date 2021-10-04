@@ -5,6 +5,7 @@
 #include <boost/property_tree/ptree.hpp>
 
 using namespace std;
+namespace pt = boost::property_tree;
 
 namespace tick
 {
@@ -36,7 +37,7 @@ namespace tick
 			const string& name = it.first;
 			const Timer& timer = it.second;
 
-			boost::property_tree::ptree subtree = timer.serialize();
+			pt::ptree subtree = timer.serialize();
 
 			tree.add_child(name, subtree);
 		}
@@ -44,9 +45,22 @@ namespace tick
 		return tree;
 	}
 
-	void TimerManager::parse(const boost::property_tree::ptree& tree)
+	void TimerManager::parse(const pt::ptree& tree)
 	{
-		
+		// 1.) --- Delete existing timers ---
+		this->clear();
+
+		// 2.) --- Iterate tree ---
+		for (const auto& it : tree) {
+			const string& name = it.first;
+			const pt::ptree& subtree = it.second;
+
+			Timer t;
+			t.parse(subtree);
+
+			// 3.) --- Insert the new Timer ---
+			this->insert(name, t);
+		}
 	}
 
 	void TimerManager::baseMethod(void(Timer::*methodPtr)(), const std::string& name)

@@ -1,11 +1,15 @@
 #include "TestPropertyTree.h"
-
-#include <sstream>
+#include "DeviceManager.h"
+#include "FileManager.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
+#include <sstream>
+
 using namespace std;
+
+namespace pt = boost::property_tree;
 
 namespace tick
 {
@@ -24,26 +28,44 @@ namespace tick
 			t3.start();
 			t3.stop();
 
-			boost::property_tree::ptree tree;
-			boost::property_tree::ptree tree1 = t1.serialize();
-			boost::property_tree::ptree tree2 = t2.serialize();
-			boost::property_tree::ptree tree3 = t3.serialize();
+			pt::ptree tree;
+			pt::ptree tree1 = t1.serialize();
+			pt::ptree tree2 = t2.serialize();
+			pt::ptree tree3 = t3.serialize();
 
 			tree.put_child("Timer1", std::move(tree1));
 			tree.put_child("Timer2", std::move(tree2));
 			tree.put_child("Timer3", std::move(tree3));
 
 			stringstream ss;
-			boost::property_tree::write_json(ss, tree);
+			pt::write_json(ss, tree);
 
 			cout << ss.str();
 
-			boost::property_tree::ptree tree4;
-			boost::property_tree::read_json(ss, tree4);
+			pt::ptree tree4;
+			pt::read_json(ss, tree4);
 
 			t1.parse(tree4.get_child("Timer1"));
 			t2.parse(tree4.get_child("Timer2"));
 			t3.parse(tree4.get_child("Timer3"));
+		}
+
+		void deviceManagerPT()
+		{
+			DeviceManager devMan;
+
+			StopWatchManager & swMan = devMan.stopwatches();
+			TimerManager& tmMan = devMan.timers();
+
+			swMan.insert("swA");
+			swMan.insert("swB", StopWatch{});
+
+			tmMan.insert("tmA");
+			tmMan.insert(Timer{});
+			
+			FileManager fileMan;
+			fileMan.write(devMan);
+			fileMan.read(devMan);
 
 		}
 	}

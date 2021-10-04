@@ -17,8 +17,8 @@ namespace tick
 		StopWatchManager& stopwatches() { return m_stopwatches; }
 		const StopWatchManager& stopwatches() const { return m_stopwatches; }
 
-		void write(const boost::filesystem::path& filename);
-		void read(const boost::filesystem::path& filename);
+		boost::property_tree::ptree serialize() const;
+		void parse(const boost::property_tree::ptree& tree);
 
 	private:
 		TimerManager m_timers;

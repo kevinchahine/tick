@@ -2,6 +2,8 @@
 
 #include <boost/property_tree/ptree.hpp>
 
+namespace pt = boost::property_tree;
+
 using namespace std;
 
 namespace tick
@@ -22,17 +24,37 @@ namespace tick
 	{
 	}
 
-	boost::property_tree::ptree StopWatchManager::serialize() const
+	pt::ptree StopWatchManager::serialize() const
 	{
-		boost::property_tree::ptree tree;
+		pt::ptree tree;
 
-		cout << __FUNCTION__ << " Not implemented\n";
-		
+		for (const auto& it : *this) {
+			const string& name = it.first;
+			const StopWatch& watch = it.second;
+
+			pt::ptree subtree = watch.serialize();
+
+			tree.add_child(name, subtree);
+		}
+
 		return tree;
 	}
 
 	void StopWatchManager::parse(const boost::property_tree::ptree& tree)
 	{
-		cout << __FUNCTION__ << " Not implemented\n";
+		// 1.) --- Delete existing stopwatches ---
+		this->clear();
+
+		// 2.) --- Iterate tree ---
+		for (const auto& it : tree) {
+			const string& name = it.first;
+			const pt::ptree& subtree = it.second;
+
+			StopWatch sw;
+			sw.parse(subtree);
+
+			// 3.) --- Insert the new StopWatch ---
+			this->insert(name, sw);
+		}
 	}
 }
