@@ -177,11 +177,11 @@ namespace tick
 			else if (device == "stopwatch") {
 				if (begin + 1 == end) {
 					// No names given. Use default name
-					///devicesPtr->stopwatches().start();
+					devicesPtr->stopwatches().startAll();
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {
-						//devicesPtr->stopwatches().start(*it, StopWatch{});
+						devicesPtr->stopwatches().start(*it);
 					}
 				}
 			}
@@ -225,11 +225,11 @@ namespace tick
 			else if (device == "stopwatch") {
 				if (begin + 1 == end) {
 					// No names given. Use default name
-					///devicesPtr->stopwatches().stop();
+					devicesPtr->stopwatches().stopAll();
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {
-						//devicesPtr->stopwatches().stop(*it, StopWatch{});
+						devicesPtr->stopwatches().stop(*it);
 					}
 				}
 			}

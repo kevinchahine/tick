@@ -12,18 +12,22 @@ namespace tick
 {
 	void StopWatchManager::start(const std::string& name)
 	{
+		baseMethod(&StopWatch::start, name);
 	}
 	
 	void StopWatchManager::startAll()
 	{
+		baseMethodAll(&StopWatch::start);
 	}
 	
 	void StopWatchManager::stop(const std::string& name)
 	{
+		baseMethod(&StopWatch::stop, name);
 	}
 	
 	void StopWatchManager::stopAll()
 	{
+		baseMethodAll(&StopWatch::stop);
 	}
 
 	pt::ptree StopWatchManager::serialize() const
@@ -59,6 +63,26 @@ namespace tick
 			this->insert(name, sw);
 		}
 	}
+
+	void StopWatchManager::baseMethod(void (StopWatch::* methodPtr)(), const std::string& name)
+	{
+		// Look for a timer that matches 'name'
+		auto it = this->find(name);
+
+		// Did we find a matching timer?
+		if (it != this->end()) {
+			// Yes. Lets start it.
+			(it->second.*methodPtr)();	// Call method pointer
+		}
+	}
+
+	// See comments for baseMethod()
+	void StopWatchManager::baseMethodAll(void (StopWatch::* methodPtr)())
+	{
+		for (auto& pair : (*this)) {
+			(pair.second.*methodPtr)();	// Call method pointer
+		}
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, const tick::StopWatchManager& manager)
@@ -70,7 +94,10 @@ std::ostream& operator<<(std::ostream& os, const tick::StopWatchManager& manager
 	os << left;
 
 	for (const auto& pair : manager) {
-		os << setw(4) << '\0' << setw(10) << pair.first << setw(10) << pair.second << endl;
+		const string& name = pair.first;
+		const tick::StopWatch& sw = pair.second;
+
+		os << setw(4) << '\0' << setw(10) << name << setw(10) << sw << endl;
 	}
 
 	os.flags(flags);

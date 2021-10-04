@@ -155,7 +155,7 @@ std::ostream& operator<<(std::ostream& os, const tick::Timer& timer)
 	stringstream ss;
 	ss << (isNeg ? '-' : '\0') << dur.hours() << ':' << dur.minutes() << ':' << dur.seconds();
 
-	cout << setw(10) << ss.str()
+	os << setw(10) << ss.str()
 		<< (timer.is_resumed() ? "" : "not ") << "resumed - "
 		<< (timer.is_expired() ? "" : "not ") << "expired";
 

@@ -131,12 +131,18 @@ namespace tick
 		minutes min = duration_cast<minutes>(elapsed);
 		seconds sec = duration_cast<seconds>(elapsed) - min;
 
-		os << min.count() << ':';
+		stringstream ss;
+
+		ss << min.count() << ':';
 		
 		if (sec.count() < 10)
-			os << '0';
+			ss << '0';
 		
-		os << sec.count();
+		ss << sec.count();
+
+		ss << setw(10) << (sw.is_resumed() ? "running" : "stopped");
+
+		os << ss.str();
 
 		return os;
 	}
