@@ -12,6 +12,38 @@ namespace pt = boost::property_tree;
 
 namespace tick
 {
+	DeviceManagerBase& DeviceManager::getManager(const std::string& deviceManagerType)
+	{
+		if (deviceManagerType == "timer") {
+			return m_timers;
+		}
+		else if (deviceManagerType == "stopwatch") {
+			return m_stopwatches;
+		}
+		else if (deviceManagerType == "alarm") {
+			cout << __FUNCTION__ << " Not implementd" << endl;
+		}
+		else if (deviceManagerType == "worldclock") {
+			cout << __FUNCTION__ << " Not implementd" << endl;
+		}
+	}
+
+	const DeviceManagerBase& DeviceManager::getManager(const std::string& deviceManagerType) const
+	{
+		if (deviceManagerType == "timer") {
+			return m_timers;
+		}
+		else if (deviceManagerType == "stopwatch") {
+			return m_stopwatches;
+		}
+		else if (deviceManagerType == "alarm") {
+			cout << __FUNCTION__ << " Not implementd" << endl;
+		}
+		else if (deviceManagerType == "worldclock") {
+			cout << __FUNCTION__ << " Not implementd" << endl;
+		}
+	}
+
 	boost::property_tree::ptree DeviceManager::serialize() const
 	{
 		// 1.) --- Serialize all devices into separate property trees ---

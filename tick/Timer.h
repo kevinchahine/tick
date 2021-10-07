@@ -1,9 +1,9 @@
 #pragma once
 
+#include "DeviceBase.h"
+
 #include <iostream>
 #include <chrono>
-
-#include "DeviceBase.h"
 
 namespace tick
 {

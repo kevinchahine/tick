@@ -25,6 +25,10 @@ int main(int argc, char** argv)
 
 	tick::CommandHandler handler(devMan);
 	
+	std::unique_ptr<tick::DeviceBase> ptr = std::make_unique<tick::Timer>();
+	tick::TimerManager man;
+	man.insert("asdf", tick::Timer{});
+
 	while (true)
 	{
 		cout << "Enter command: ";

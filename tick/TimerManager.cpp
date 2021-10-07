@@ -35,11 +35,11 @@ namespace tick
 
 		for (const auto& it : *this) {
 			const string& name = it.first;
-			const Timer& timer = it.second;
+			/////////////const Timer& timer = it.second;
 
-			pt::ptree subtree = timer.serialize();
+			////////////pt::ptree subtree = timer.serialize();
 
-			tree.add_child(name, subtree);
+			//////////tree.add_child(name, subtree);
 		}
 
 		return tree;
@@ -55,11 +55,11 @@ namespace tick
 			const string& name = it.first;
 			const pt::ptree& subtree = it.second;
 
-			Timer t;
-			t.parse(subtree);
-
-			// 3.) --- Insert the new Timer ---
-			this->insert(name, t);
+			///////////////Timer t;
+			///////////////t.parse(subtree);
+			///////////////
+			///////////////// 3.) --- Insert the new Timer ---
+			///////////////this->insert(name, t);
 		}
 	}
 
@@ -71,42 +71,16 @@ namespace tick
 		// Did we find a matching timer?
 		if (it != this->end()) {
 			// Yes. Lets start it.
-			(it->second.*methodPtr)();	// Call method pointer
+			/////////////(it->second.*methodPtr)();	// Call method pointer
 		}
 	}
 
 	void TimerManager::baseMethodAll(void(Timer::* methodPtr)())
 	{
 		for (auto& pair : (*this)) {
-			(pair.second.*methodPtr)();	// Call method pointer
+			//////////////////(pair.second.*methodPtr)();	// Call method pointer
 		}
 	}
-
-	std::string TimerManager::findUnusedName() const
-	{
-		const int DEFAULT_NAME_LIMIT = 100;
-
-		std::string timerName;
-
-		int i;
-		for (i = 0; i < DEFAULT_NAME_LIMIT; i++) {
-			timerName = "timer" + std::to_string(i);
-
-			auto it = this->find(timerName);
-
-			if (it == this->end()) {
-				// This name is free and hasn't been used.
-				break;
-			}
-		}
-
-		if (i >= DEFAULT_NAME_LIMIT) {
-			std::cout << "Error: Exceeded count of default timer names." << std::endl;
-		}
-
-		return timerName;
-	}
-
 }
 
 std::ostream& operator<<(std::ostream& os, const tick::TimerManager& manager)

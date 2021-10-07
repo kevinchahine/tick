@@ -35,12 +35,12 @@ namespace tick
 		pt::ptree tree;
 
 		for (const auto& it : *this) {
-			const string& name = it.first;
-			const StopWatch& watch = it.second;
-
-			pt::ptree subtree = watch.serialize();
-
-			tree.add_child(name, subtree);
+			/////////////////const string& name = it.first;
+			/////////////////const StopWatch& watch = it.second;
+			/////////////////
+			/////////////////pt::ptree subtree = watch.serialize();
+			/////////////////
+			/////////////////tree.add_child(name, subtree);
 		}
 
 		return tree;
@@ -53,14 +53,14 @@ namespace tick
 
 		// 2.) --- Iterate tree ---
 		for (const auto& it : tree) {
-			const string& name = it.first;
-			const pt::ptree& subtree = it.second;
-
-			StopWatch sw;
-			sw.parse(subtree);
-
-			// 3.) --- Insert the new StopWatch ---
-			this->insert(name, sw);
+			///////////////const string& name = it.first;
+			///////////////const pt::ptree& subtree = it.second;
+			///////////////
+			///////////////StopWatch sw;
+			///////////////sw.parse(subtree);
+			///////////////
+			///////////////// 3.) --- Insert the new StopWatch ---
+			///////////////this->insert(name, sw);
 		}
 	}
 
@@ -72,7 +72,7 @@ namespace tick
 		// Did we find a matching timer?
 		if (it != this->end()) {
 			// Yes. Lets start it.
-			(it->second.*methodPtr)();	// Call method pointer
+			//////////////(it->second.*methodPtr)();	// Call method pointer
 		}
 	}
 
@@ -80,7 +80,7 @@ namespace tick
 	void StopWatchManager::baseMethodAll(void (StopWatch::* methodPtr)())
 	{
 		for (auto& pair : (*this)) {
-			(pair.second.*methodPtr)();	// Call method pointer
+			///////////////////(pair.second.*methodPtr)();	// Call method pointer
 		}
 	}
 }
@@ -94,10 +94,10 @@ std::ostream& operator<<(std::ostream& os, const tick::StopWatchManager& manager
 	os << left;
 
 	for (const auto& pair : manager) {
-		const string& name = pair.first;
-		const tick::StopWatch& sw = pair.second;
-
-		os << setw(4) << '\0' << setw(10) << name << setw(10) << sw << endl;
+		///////////const string& name = pair.first;
+		///////////const tick::StopWatch& sw = pair.second;
+		///////////
+		///////////os << setw(4) << '\0' << setw(10) << name << setw(10) << sw << endl;
 	}
 
 	os.flags(flags);

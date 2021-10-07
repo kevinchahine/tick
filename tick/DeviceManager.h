@@ -17,6 +17,9 @@ namespace tick
 		StopWatchManager& stopwatches() { return m_stopwatches; }
 		const StopWatchManager& stopwatches() const { return m_stopwatches; }
 
+		DeviceManagerBase& getManager(const std::string& deviceManagerType);
+		const DeviceManagerBase& getManager(const std::string& deviceManagerType) const;
+
 		boost::property_tree::ptree serialize() const;
 		void parse(const boost::property_tree::ptree& tree);
 

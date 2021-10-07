@@ -5,52 +5,13 @@
 #include <map>
 
 #include "Timer.h"
+#include "DeviceManagerTemplate.h"
 
 namespace tick
 {
-	class TimerManager : public std::map<std::string, Timer>
+	class TimerManager : public DeviceManagerTemplate<Timer>
 	{
 	public:
-		template<typename KEY_T, typename TIMER_T>
-		void insert(KEY_T&& key, TIMER_T&& timer = Timer{})
-		{
-			this->std::map<std::string, Timer>::insert(
-				std::make_pair(
-					std::forward<KEY_T>(key), 
-					std::forward<TIMER_T>(timer)));
-		}
-		
-		// Inserts a timer and gives it a default name
-		void insert(const Timer& timer)
-		{
-			// 1.) --- Search for an unused name ---
-			std::string name = findUnusedName();
-
-			// 2.) 
-			this->insert(
-				std::move(name), 
-				timer);
-		}
-
-		// Inserts a default constructed timer with a specified name
-		void insert(std::string&& name)
-		{
-			insert(std::move(name), Timer{});
-		}
-		
-		// Inserts a default constructed timer with a specified name
-		void insert(const std::string& name)
-		{
-			insert(name, Timer{});
-		}
-
-		// Insert a default constructed Timer with a default name
-		void insert()
-		{
-			std::string timerName = findUnusedName();
-
-			insert(std::move(timerName));
-		}
 
 		void start(const std::string& name);
 		void startAll();
@@ -75,7 +36,6 @@ namespace tick
 		// See comments for baseMethod()
 		void baseMethodAll(void (Timer::*methodPtr)());
 
-		std::string findUnusedName() const;
 	};
 } // namespace tick
 

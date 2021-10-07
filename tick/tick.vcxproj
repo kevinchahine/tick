@@ -135,6 +135,8 @@
     <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="DeviceBase.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="DeviceManagerBase.cpp" />
+    <ClCompile Include="DeviceManagerTemplate.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StopWatch.cpp" />
@@ -149,6 +151,8 @@
     <ClInclude Include="CommandHandler.h" />
     <ClInclude Include="DeviceBase.h" />
     <ClInclude Include="DeviceManager.h" />
+    <ClInclude Include="DeviceManagerBase.h" />
+    <ClInclude Include="DeviceManagerTemplate.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StopWatchManager.h" />

@@ -63,11 +63,14 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceManagerTemplate.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManagerBase.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CommandHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestPropertyTree.h">
       <Filter>Test</Filter>
     </ClInclude>
@@ -96,6 +99,15 @@
       <Filter>Test</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandHandler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManagerTemplate.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManagerBase.h">
       <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>

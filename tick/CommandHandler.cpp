@@ -111,43 +111,56 @@ namespace tick
 		if (begin == end) {
 			// No arguments
 			// Nothing to do here
-			cout << "Error: No device specified. Ex: timer, stopwatch, ...\n";
-			return;
+			throw exception("Error: No device specified.Ex : timer, stopwatch, ...\n");
 		}
 		else {
 			// --- Determine the Device Type ---
 			string device = *begin;
 			boost::algorithm::to_lower(device);
 
-			if (device == "timer") {
-				if (begin + 1 == end) {
-					// No names given
-					devicesPtr->timers().insert();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->timers().insert(*it, Timer{});
-					}
-				}
-			}
-			else if (device == "stopwatch") {
-				if (begin + 1 == end) {
-					// No names given. Use default name
-					devicesPtr->stopwatches().insert();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->stopwatches().insert(*it, StopWatch{});
-					}
-				}
-			}
-			else if (device == "alarm") {
-			}
-			else if (device == "worldclock") {
+			// VVVVVVVVVVVVVVVVVVVVVV
+			auto & managerPtr = devicesPtr->getManager(device);
+			if (begin + 1 == end) {
+				///////////////managerPtr.insert();
 			}
 			else {
-				cout << "Error: Unexpected device type: " << device << endl;
-				return;
+				for (auto it = begin + 1; it != end; ++it) {
+					////////////////managerPtr.insert(*it);
+				}
+			}
+			// ^^^^^^^^^^^^^^^^^^^^^^^^^
+			
+			//////if (device == "timer") {
+			//////	if (begin + 1 == end) {
+			//////		// No names given
+					devicesPtr->timers().insert();
+			//////	}
+			//////	else {
+			//////		for (auto it = begin + 1; it != end; ++it) {
+			//////			devicesPtr->timers().insert(*it, Timer{});
+			//////		}
+			//////	}
+			//////}
+			//////else if (device == "stopwatch") {
+			//////	if (begin + 1 == end) {
+			//////		// No names given. Use default name
+			//////		devicesPtr->stopwatches().insert();
+			//////	}
+			//////	else {
+			//////		for (auto it = begin + 1; it != end; ++it) {
+			//////			devicesPtr->stopwatches().insert(*it, StopWatch{});
+			//////		}
+			//////	}
+			//////}
+			//////else if (device == "alarm") {
+			//////}
+			//////else if (device == "worldclock") {
+			//////}
+			if (true) {}	// TODO: Remove this
+			else {
+				stringstream ss;
+				ss << "Error: Unexpected device type: " << device << endl;
+				throw exception(ss.str().c_str());
 			}
 		}
 	}
