@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <string>
+#include <iomanip>
 
 #include <boost/program_options.hpp>
 #include <boost/algorithm/string.hpp>					// break this down
@@ -39,7 +40,7 @@ namespace tick
 
 		handle(tokens);
 	}
-	
+
 	void CommandHandler::handle(const std::vector<std::string>& args)
 	{
 		if (args.size()) {
@@ -95,13 +96,16 @@ namespace tick
 		else if (second == "show") {
 			handleShow(begin + 1, end);
 		}
+		else if (second == "help") {
+			handleHelp(begin + 1, end);
+		}
 		else {
 			cout << "Unknown 2nd argument: \'" << second << "\'\n";
 		}
 	}
 
 	void CommandHandler::handleMake(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 		if (begin == end) {
@@ -149,7 +153,7 @@ namespace tick
 	}
 
 	void CommandHandler::handleStart(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 		if (begin == end) {
@@ -197,7 +201,7 @@ namespace tick
 	}
 
 	void CommandHandler::handleStop(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 		if (begin == end) {
@@ -245,25 +249,25 @@ namespace tick
 	}
 
 	void CommandHandler::handleSet(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 	}
 
 	void CommandHandler::handleRemove(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 	}
 
 	void CommandHandler::handleRestore(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 	}
 
 	void CommandHandler::handleShow(
-		const std::vector<std::string>::const_iterator begin, 
+		const std::vector<std::string>::const_iterator begin,
 		const std::vector<std::string>::const_iterator end)
 	{
 		if (begin == end) {
@@ -307,6 +311,73 @@ namespace tick
 				return;
 			}
 		}
+	}
+
+	void CommandHandler::handleHelp(
+		const std::vector<std::string>::const_iterator begin,
+		const std::vector<std::string>::const_iterator end)
+	{
+		int w = 12;
+
+		auto flags = cout.flags();
+		cout << left;
+
+		// --- First Command ---
+		cout << "Tick" << endl;
+
+		if (begin == end) {
+			// --- Second Commands ---
+			cout
+				<< setw(w) << "\tMake" << "Creates a device" << endl
+				<< setw(w) << "\tStart" << "Resumes or activates a device" << endl
+				<< setw(w) << "\tStop" << "Pauses or deactivates a device" << endl
+				<< setw(w) << "\tSet" << "Assigns value to a device" << endl
+				<< setw(w) << "\tRemove" << "Moves a device to local recycling bin" << endl
+				<< setw(w) << "\tRestore" << "Restores a device from local recycling bin" << endl
+				<< setw(w) << "\tShow" << "Prints information about devices" << endl
+				<< setw(w) << "\tExit" << "Exits the tick session. Devices will remain operational" << endl
+				<< endl;
+
+			// --- Devices ---
+			cout << "Devices:" << endl
+				<< setw(w) << "\tTimer" << "Counts down from a set duration. Can perform a set action at time out." << endl
+				<< setw(w) << "\tStopwatch" << "Counts up from 0" << endl
+				<< setw(w) << "\tAlarm" << "Triggers an event at its set time" << endl
+				<< setw(w) << "\tWorldClock" << "Displays time at a specified time zone" << endl
+				<< endl;
+
+			// --- Examples ---
+			cout << "Examples:" << endl
+				<< "\trun \'tick help examples\' to see examples" << endl;
+		}
+		else if (*begin == "examples") {
+			w = 28;
+
+			// --- Creating Devices ---
+			cout << "Examples:" << endl
+				<< setw(w) << "\ttick make timer" << "Creates a timer with an automatic name" << endl
+				<< setw(w) << "\ttick make timer myTimer1" << "Creates a timer called \'myTimer1\'" << endl
+				<< setw(w) << "\ttick make timer t1 t2 t3" << "Creates 3 timers" << endl
+				<< endl
+				<< setw(w) << "\ttick start timer t1" << "Resumes timer \'t1\'" << endl
+				<< setw(w) << "\ttick start timer t2 t3" << "Resumes timers \'t1\' and \'t2\'" << endl
+				<< setw(w) << "\ttick start timer" << "Resumes all timers" << endl
+				<< endl
+				<< setw(w) << "\ttick stop timer t1" << "Pauses timer \'t1\'" << endl
+				<< setw(w) << "\ttick stop timer t2 t3" << "Pauses timers \'t1\' and \'t2\'" << endl
+				<< setw(w) << "\ttick stop timer" << "Pauses all timers" << endl
+				<< endl
+				<< setw(w) << "\ttick show" << "Shows all devices" << endl
+				<< setw(w) << "\ttick show timer" << "Show all timers" << endl
+				<< setw(w) << "\ttick show timer t1 t2" << "Show timers \'t1\' and \'t2\'" << endl
+				<< setw(w) << "\ttick show stopwatch" << "Shows all stopwatches" << endl
+				<< setw(w) << "\ttick show alarm" << "Shows all alarms" << endl
+				<< setw(w) << "\ttick show worldclock" << "Shows all world clocks" << endl
+				<< endl;
+		}
+
+		cout << endl;
+		cout.flags(flags);
 	}
 
 } // namespace tick

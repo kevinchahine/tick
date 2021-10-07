@@ -80,6 +80,11 @@ namespace tick
 		void handleShow(
 			const std::vector<std::string>::const_iterator begin,
 			const std::vector<std::string>::const_iterator end);
+
+		void handleHelp(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+
 	private:
 		//// Main command description
 		//boost::program_options::options_description desc;
