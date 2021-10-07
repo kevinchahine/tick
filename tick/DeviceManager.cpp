@@ -22,9 +22,14 @@ namespace tick
 		}
 		else if (deviceManagerType == "alarm") {
 			cout << __FUNCTION__ << " Not implementd" << endl;
+			return m_stopwatches;	// TODO: Remove this
 		}
 		else if (deviceManagerType == "worldclock") {
 			cout << __FUNCTION__ << " Not implementd" << endl;
+			return m_stopwatches;	// TODO: Remove this
+		}
+		else {
+			throw exception("deviceManagerType unrecognized as a device type");
 		}
 	}
 

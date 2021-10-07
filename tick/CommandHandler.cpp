@@ -115,52 +115,19 @@ namespace tick
 		}
 		else {
 			// --- Determine the Device Type ---
-			string device = *begin;
+			const string & device = *begin;
 			boost::algorithm::to_lower(device);
 
-			// VVVVVVVVVVVVVVVVVVVVVV
-			auto & managerPtr = devicesPtr->getManager(device);
+			DeviceManagerBase & man = devicesPtr->getManager(device);
 			if (begin + 1 == end) {
-				///////////////managerPtr.insert();
+				// No device names given. Have manager pick a name automatically
+				man.insert();	
 			}
 			else {
+				// One or more device names given
 				for (auto it = begin + 1; it != end; ++it) {
-					////////////////managerPtr.insert(*it);
+					man.insert(*it);
 				}
-			}
-			// ^^^^^^^^^^^^^^^^^^^^^^^^^
-			
-			//////if (device == "timer") {
-			//////	if (begin + 1 == end) {
-			//////		// No names given
-					devicesPtr->timers().insert();
-			//////	}
-			//////	else {
-			//////		for (auto it = begin + 1; it != end; ++it) {
-			//////			devicesPtr->timers().insert(*it, Timer{});
-			//////		}
-			//////	}
-			//////}
-			//////else if (device == "stopwatch") {
-			//////	if (begin + 1 == end) {
-			//////		// No names given. Use default name
-			//////		devicesPtr->stopwatches().insert();
-			//////	}
-			//////	else {
-			//////		for (auto it = begin + 1; it != end; ++it) {
-			//////			devicesPtr->stopwatches().insert(*it, StopWatch{});
-			//////		}
-			//////	}
-			//////}
-			//////else if (device == "alarm") {
-			//////}
-			//////else if (device == "worldclock") {
-			//////}
-			if (true) {}	// TODO: Remove this
-			else {
-				stringstream ss;
-				ss << "Error: Unexpected device type: " << device << endl;
-				throw exception(ss.str().c_str());
 			}
 		}
 	}

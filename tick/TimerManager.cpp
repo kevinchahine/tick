@@ -35,7 +35,7 @@ namespace tick
 
 		for (const auto& it : *this) {
 			const string& name = it.first;
-			/////////////const Timer& timer = it.second;
+			///////////////const Timer& timer = it.second;
 
 			////////////pt::ptree subtree = timer.serialize();
 

@@ -28,7 +28,7 @@ namespace tick
 		}
 
 		// Inserts a timer and gives it a default name
-		void insert(const DEVICE_T& timer)
+		void insert(const DEVICE_T& device)
 		{
 			// 1.) --- Search for an unused name ---
 			std::string name = findUnusedName();
@@ -36,10 +36,10 @@ namespace tick
 			// 2.) 
 			this->insert(
 				std::move(name),
-				timer);
+				device);
 		}
 
-		void insert(const std::string & key, const DEVICE_T& device = DEVICE_T{})
+		void insert(const std::string& key, const DEVICE_T& device = DEVICE_T{})
 		{
 			this->DeviceManagerBase::insert(
 				key,
