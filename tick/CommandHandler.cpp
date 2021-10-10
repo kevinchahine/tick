@@ -147,35 +147,16 @@ namespace tick
 			string device = *begin;
 			boost::algorithm::to_lower(device);
 
-			if (device == "timer") {
-				if (begin + 1 == end || *(begin + 1) == "all") {
-					// No names given
-					devicesPtr->timers().startAll();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->timers().start(*it);
-					}
-				}
-			}
-			else if (device == "stopwatch") {
-				if (begin + 1 == end) {
-					// No names given. Use default name
-					devicesPtr->stopwatches().startAll();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->stopwatches().start(*it);
-					}
-				}
-			}
-			else if (device == "alarm") {
-			}
-			else if (device == "worldclock") {
+			DeviceManagerBase& man = devicesPtr->getManager(device);
+			if (begin + 1 == end) {
+				// No device names given. Have manager pick a name automatically
+				man.startAll();
 			}
 			else {
-				cout << "Error: Unexpected device type: " << device << endl;
-				return;
+				// One or more device names given
+				for (auto it = begin + 1; it != end; ++it) {
+					man.start(*it);
+				}
 			}
 		}
 	}
@@ -195,35 +176,16 @@ namespace tick
 			string device = *begin;
 			boost::algorithm::to_lower(device);
 
-			if (device == "timer") {
-				if (begin + 1 == end || *(begin + 1) == "all") {
-					// No names given
-					devicesPtr->timers().stopAll();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->timers().stop(*it);
-					}
-				}
-			}
-			else if (device == "stopwatch") {
-				if (begin + 1 == end) {
-					// No names given. Use default name
-					devicesPtr->stopwatches().stopAll();
-				}
-				else {
-					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->stopwatches().stop(*it);
-					}
-				}
-			}
-			else if (device == "alarm") {
-			}
-			else if (device == "worldclock") {
+			DeviceManagerBase& man = devicesPtr->getManager(device);
+			if (begin + 1 == end) {
+				// No device names given. Have manager pick a name automatically
+				man.stopAll();
 			}
 			else {
-				cout << "Error: Unexpected device type: " << device << endl;
-				return;
+				// One or more device names given
+				for (auto it = begin + 1; it != end; ++it) {
+					man.stop(*it);
+				}
 			}
 		}
 	}

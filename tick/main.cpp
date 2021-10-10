@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	//tick::test::timerPropertyTree();
 	//tick::test::timerManagerInsert();
 	//tick::test::timerManagerPropertyTree();
-	tick::test::deviceManagerPT();
+	//tick::test::deviceManagerPT();
 
 	// ------------------------- MAIN CODE ---------------------------------------
 

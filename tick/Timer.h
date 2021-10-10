@@ -10,6 +10,7 @@ namespace tick
 	class Timer : public DeviceBase
 	{
 	public:
+		static std::string name() { return "timer"; }
 
 		virtual void start() override;
 

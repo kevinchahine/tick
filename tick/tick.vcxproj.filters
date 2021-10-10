@@ -36,9 +36,6 @@
     <ClCompile Include="TestPropertyTree.cpp">
       <Filter>Test</Filter>
     </ClCompile>
-    <ClCompile Include="ClockBase.cpp">
-      <Filter>Devices</Filter>
-    </ClCompile>
     <ClCompile Include="DeviceBase.cpp">
       <Filter>Devices</Filter>
     </ClCompile>
@@ -73,9 +70,6 @@
   <ItemGroup>
     <ClInclude Include="TestPropertyTree.h">
       <Filter>Test</Filter>
-    </ClInclude>
-    <ClInclude Include="ClockBase.h">
-      <Filter>Devices</Filter>
     </ClInclude>
     <ClInclude Include="DeviceBase.h">
       <Filter>Devices</Filter>

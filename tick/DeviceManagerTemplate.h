@@ -8,11 +8,11 @@ namespace tick
 	class DeviceManagerTemplate : public DeviceManagerBase
 	{
 	public:
-
+		
 		// Insert a default constructed Timer with a default name
 		virtual void insert() override
 		{
-			insert(findUnusedName());
+			insert(findUnusedName(DEVICE_T::name()));
 		}
 
 		// Inserts a default constructed timer with a specified name
@@ -31,7 +31,7 @@ namespace tick
 		void insert(const DEVICE_T& device)
 		{
 			// 1.) --- Search for an unused name ---
-			std::string name = findUnusedName();
+			std::string name = findUnusedName(DEVICE_T::name());
 
 			// 2.) 
 			this->insert(

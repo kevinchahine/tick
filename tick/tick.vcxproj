@@ -131,7 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClockBase.cpp" />
     <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="DeviceBase.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
@@ -147,7 +146,6 @@
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClockBase.h" />
     <ClInclude Include="CommandHandler.h" />
     <ClInclude Include="DeviceBase.h" />
     <ClInclude Include="DeviceManager.h" />

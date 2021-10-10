@@ -7,6 +7,7 @@ namespace tick
 	class DeviceBase
 	{
 	public:
+		static std::string name() { return "DeviceBase"; }
 
 		virtual void start() = 0;
 		virtual void stop() = 0;

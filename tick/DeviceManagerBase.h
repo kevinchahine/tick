@@ -19,11 +19,9 @@ namespace tick
 		virtual void insert(std::string&& deviceName) = 0;
 		virtual void insert(const std::string& deviceName, std::unique_ptr<DeviceBase>&& devicePtr)
 		{
-			std::cout << __FUNCTION__ << " is called " << deviceName << " size = " << this->size() << std::endl;
 			this->std::map<std::string, std::unique_ptr<DeviceBase>>::insert(
 				std::make_pair(deviceName, std::move(devicePtr))
 			);
-			std::cout << this->size() << std::endl;
 		}
 		//virtual void insert(std::string&& deviceName, std::unique_ptr<DeviceBase>&& devicePtr)
 		//{
@@ -33,11 +31,27 @@ namespace tick
 		//	);
 		//}
 		
+		void start(const std::string & name);
+		void startAll();
+
+		void stop(const std::string& name);
+		void stopAll();
+
+		void set(const std::string& name, int whatGoesHere);
+		void setAll(int whatGoesHere);
+
+		// This method should return a unique_ptr<DeviceBase> of the removed object
+		std::unique_ptr<DeviceBase> remove(const std::string& name);
+		// Think about this one.
+		void removeAll();
+
 		boost::property_tree::ptree serialize() const;
 		virtual void parse(const boost::property_tree::ptree& tree) = 0;
 
 	protected:
 
-		std::string findUnusedName() const;
+		// base is the first part of the device name.
+		// ex: "timer", "stopwatch", "alarm", ...
+		std::string findUnusedName(const std::string & base) const;
 	};
 }

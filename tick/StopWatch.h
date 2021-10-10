@@ -10,6 +10,8 @@ namespace tick
 	class StopWatch : public DeviceBase
 	{
 	public:
+		static std::string name() { return "sw";	}
+
 		// Sets elapsed time to the one specified and pauses clock
 		void reset(std::chrono::nanoseconds elapsedTime = std::chrono::nanoseconds(0));
 
@@ -41,6 +43,7 @@ namespace tick
 			PAUSED,
 			RESUMED
 		} state = STATE::PAUSED;
+
 	};
 } // namespace tick
 

@@ -60,13 +60,14 @@ namespace tick
 			swMan.insert("swA");
 			swMan.insert("swB", StopWatch{});
 
-			tmMan.insert("tmA");
 			tmMan.insert(Timer{});
+			tmMan.insert("tmA");
+			tmMan.insert("tmB");
+			tmMan.insert("tmC");
 			
 			FileManager fileMan;
 			fileMan.write(devMan);
 			fileMan.read(devMan);
-
 		}
 	}
 }
