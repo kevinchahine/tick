@@ -20,14 +20,20 @@ void stop()
 
 int main(int argc, char** argv)
 {
+	// ------------------------- TEST CODE ---------------------------------------
+	//tick::test::timerPropertyTree();
+	//tick::test::timerManagerInsert();
+	//tick::test::timerManagerPropertyTree();
+	tick::test::deviceManagerPT();
+
+	// ------------------------- MAIN CODE ---------------------------------------
+
 	tick::DeviceManager devMan;
 	tick::FileManager fileMan;
 
 	tick::CommandHandler handler(devMan);
 	
 	std::unique_ptr<tick::DeviceBase> ptr = std::make_unique<tick::Timer>();
-	tick::TimerManager man;
-	man.insert("asdf", tick::Timer{});
 
 	while (true)
 	{
@@ -39,7 +45,7 @@ int main(int argc, char** argv)
 		if (cmdLine == "exit") {
 			break;
 		}
-	
+		
 		// 1.) --- Load saved data ---
 		fileMan.read(devMan);
 	
@@ -49,11 +55,6 @@ int main(int argc, char** argv)
 		// 3.) --- Store data back to file ---
 		fileMan.write(devMan);
 	}
-
-	//tick::test::timerPropertyTree();
-	//tick::test::timerManagerInsert();
-	//tick::test::timerManagerPropertyTree();
-	//tick::test::deviceManagerPT();
 
 	return 0;
 }

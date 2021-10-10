@@ -111,11 +111,11 @@ namespace tick
 		if (begin == end) {
 			// No arguments
 			// Nothing to do here
-			throw exception("Error: No device specified.Ex : timer, stopwatch, ...\n");
+			throw exception("Error: No device specified. ex: tick make timer\n");
 		}
 		else {
 			// --- Determine the Device Type ---
-			const string & device = *begin;
+			string device = *begin;
 			boost::algorithm::to_lower(device);
 
 			DeviceManagerBase & man = devicesPtr->getManager(device);
@@ -267,7 +267,8 @@ namespace tick
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->timers().insert(*it, Timer{});
+						//if (devicesPtr->timers().find(*it) != devicesPtr->timers().end()) {
+						//}
 					}
 				}
 			}
@@ -278,7 +279,7 @@ namespace tick
 				}
 				else {
 					for (auto it = begin + 1; it != end; ++it) {
-						devicesPtr->stopwatches().insert(*it, StopWatch{});
+						//////devicesPtr->stopwatches().insert(*it, StopWatch{});
 					}
 				}
 			}

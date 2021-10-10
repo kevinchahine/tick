@@ -10,6 +10,8 @@
 using namespace std;
 using namespace std::chrono;
 
+namespace pt = boost::property_tree;
+
 namespace tick
 {
 	void StopWatch::reset(std::chrono::nanoseconds elapsedTime)
@@ -46,12 +48,12 @@ namespace tick
 		}
 	}
 
-	boost::property_tree::ptree StopWatch::serialize() const
+	pt::ptree StopWatch::serialize() const
 	{
-		boost::property_tree::ptree tree;
-	
-		tree.put("lastResumed", lastResumed.time_since_epoch().count());
-		tree.put("m_elapsed", m_elapsed.count());
+		pt::ptree fieldTree;
+
+		fieldTree.put("lastResumed", lastResumed.time_since_epoch().count());
+		fieldTree.put("m_elapsed", m_elapsed.count());
 		
 		string stateStr = "PAUSED";
 		switch (state)
@@ -60,15 +62,29 @@ namespace tick
 		case STATE::RESUMED:	stateStr = "RESUMED";	break;
 		default:	cout << "Unknown STATE, " << (int)state << endl;	break;
 		}
-		tree.put("state", std::move(stateStr));
+		fieldTree.put("state", std::move(stateStr));
 	
-		return tree;
+		// ------------------------------------------------------
+
+		pt::ptree classTree;
+		classTree.add_child("StopWatch", fieldTree);
+
+		return classTree;
 	}
 	
-	void StopWatch::parse(const boost::property_tree::ptree& tree)
+	void StopWatch::parse(const pt::ptree& tree)
 	{
+		// 1.) --- Make sure this tree contains a "StopWatch" ---
+		auto op = tree.get_child_optional("StopWatch");
+		if (!op) {
+			throw exception("This ptree did not contain a StopWatch object. The JSON file might be corrupt.");
+		}
+
+		// 2.) --- Parse Fields ---
+		const pt::ptree& fieldTree = op.value();
+
 		{ // --- lastResumed ---
-			auto op = tree.get_optional<long long>("lastResumed");
+			auto op = fieldTree.get_optional<long long>("lastResumed");
 			long long timeSinceEpoch;
 	
 			if (op) {
@@ -86,7 +102,7 @@ namespace tick
 		}
 	
 		{ // --- m_elapsed ---
-			auto op = tree.get_optional<long long>("m_elapsed");
+			auto op = fieldTree.get_optional<long long>("m_elapsed");
 			long long dur;
 	
 			if (op) {
@@ -103,7 +119,7 @@ namespace tick
 		}
 	
 		{ // --- state ---
-			auto op = tree.get_optional<string>("state");
+			auto op = fieldTree.get_optional<string>("state");
 	
 			if (!op) {
 				cout << "Error: Corrupt property tree. Missing value for state. "

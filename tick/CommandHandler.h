@@ -86,18 +86,6 @@ namespace tick
 			const std::vector<std::string>::const_iterator end);
 
 	private:
-		//// Main command description
-		//boost::program_options::options_description desc;
-		//
-		//// Sub command descriptions
-		//boost::program_options::options_description showDesc;		
-		//boost::program_options::options_description newDesc;		
-		//boost::program_options::options_description deleteDesc;		
-		//boost::program_options::options_description startDesc;		
-		//boost::program_options::options_description pauseDesc;		
-		//boost::program_options::options_description stopDesc;		
-		//boost::program_options::options_description switchDesc;		
-		//boost::program_options::options_description setDesc;	
 
 		// Points to the DeviceManager object that stores all the clock 
 		// devices. 

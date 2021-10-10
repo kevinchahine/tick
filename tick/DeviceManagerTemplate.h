@@ -46,5 +46,23 @@ namespace tick
 				std::make_unique<DEVICE_T>(device)
 			);
 		}
+
+		virtual void parse(const boost::property_tree::ptree& tree) override
+		{
+			// 1.) --- Delete existing devices in their container ---
+			this->clear();
+
+			// 2.) --- Iterate tree ---
+			for (const auto& it : tree) {
+				const std::string& name = it.first;
+				const boost::property_tree::ptree& subtree = it.second;
+
+				DEVICE_T device;
+				device.parse(subtree);
+
+				// 3.) --- Insert the new Timer ---
+				this->insert(name, device);
+			}
+		}
 	};
 }

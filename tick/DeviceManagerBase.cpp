@@ -1,18 +1,39 @@
 #include "DeviceManagerBase.h"
 
 using namespace std;
+namespace pt = boost::property_tree;
 
 namespace tick
 {
-	std::string DeviceManagerBase::findUnusedName() const
+	boost::property_tree::ptree DeviceManagerBase::serialize() const
+	{
+		boost::property_tree::ptree tree;
+	
+		// Iterate each device in this container
+		for (const auto& it : *this) {
+			// Grab the key (name) and value (device)
+			const string& name = it.first;
+			const DeviceBase& device = static_cast<const DeviceBase&>(*it.second);
+	
+			// Serialize the device
+			pt::ptree subtree = device.serialize();
+			
+			// Push subtree into bigger tree
+			tree.add_child(name, subtree);
+		}
+	
+		return tree;
+	}
+
+	string DeviceManagerBase::findUnusedName() const
 	{
 		const int DEFAULT_NAME_LIMIT = 100;
 
-		std::string timerName;
+		string timerName;
 
 		int i;
 		for (i = 0; i < DEFAULT_NAME_LIMIT; i++) {
-			timerName = "timer" + std::to_string(i);
+			timerName = "timer" + to_string(i);
 
 			auto it = this->find(timerName);
 			

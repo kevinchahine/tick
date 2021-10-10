@@ -8,6 +8,8 @@
 
 using namespace std;
 
+namespace pt = boost::property_tree;
+
 namespace tick
 {
 	void Timer::start()
@@ -60,12 +62,12 @@ namespace tick
 		expiry += duration;
 	}
 
-	boost::property_tree::ptree Timer::serialize() const
+	pt::ptree Timer::serialize() const
 	{
-		boost::property_tree::ptree tree;
-
-		tree.put("lastResumed", lastResumed.time_since_epoch().count());
-		tree.put("expiry", expiry.count());
+		pt::ptree fieldTree;
+		
+		fieldTree.put("lastResumed", lastResumed.time_since_epoch().count());
+		fieldTree.put("expiry", expiry.count());
 
 		string stateStr = "PAUSED";
 		switch (state) {
@@ -73,15 +75,29 @@ namespace tick
 		case STATE::RESUMED:	stateStr = "RESUMED";	break;
 		default:	cout << "Unknown STATE, " << (int)state << endl;	break;
 		}
-		tree.put("state", std::move(stateStr));
+		fieldTree.put("state", std::move(stateStr));
 
-		return tree;
+		// ------------------------------------------------------
+
+		pt::ptree classTree;
+		classTree.add_child("Timer", fieldTree);
+
+		return classTree;
 	}
 
-	void Timer::parse(const boost::property_tree::ptree& tree)
+	void Timer::parse(const pt::ptree& tree)
 	{
+		// 1.) --- Make sure this tree contains a "Timer" ---
+		auto op = tree.get_child_optional("Timer");
+		if (!op) {
+			throw exception("This ptree did not contain a Timer object. The JSON file might be corrupt.");
+		}
+
+		// 2.) --- Parse Fields ---
+		const pt::ptree& fieldTree = op.value();
+		
 		{ // --- lastResumed --- 
-			auto op = tree.get_optional<long long>("lastResumed");
+			auto op = fieldTree.get_optional<long long>("lastResumed");
 			long long timeSinceEpoch;
 
 			if (op) {
@@ -99,7 +115,7 @@ namespace tick
 		}
 
 		{ // --- expiry ---
-			auto op = tree.get_optional<long long>("expiry");
+			auto op = fieldTree.get_optional<long long>("expiry");
 			long long dur;
 
 			if (op) {
@@ -116,7 +132,7 @@ namespace tick
 		}
 
 		{ // --- state ---
-			auto op = tree.get_optional<string>("state");
+			auto op = fieldTree.get_optional<string>("state");
 
 			if (!op) {
 				cout << "Error: Corrupt property tree. Missing value for state. "
