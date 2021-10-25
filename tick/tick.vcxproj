@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -136,12 +136,14 @@
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="DeviceManagerBase.cpp" />
     <ClCompile Include="DeviceManagerTemplate.cpp" />
+    <ClCompile Include="Duration.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StopWatchManager.cpp" />
     <ClCompile Include="TestPropertyTree.cpp" />
     <ClCompile Include="TestTimerManager.cpp" />
+    <ClCompile Include="TimeFormat.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
@@ -151,11 +153,13 @@
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DeviceManagerBase.h" />
     <ClInclude Include="DeviceManagerTemplate.h" />
+    <ClInclude Include="Duration.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StopWatchManager.h" />
     <ClInclude Include="TestPropertyTree.h" />
     <ClInclude Include="TestTimerManager.h" />
+    <ClInclude Include="TimeFormat.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
   </ItemGroup>
@@ -164,6 +168,7 @@
     <Text Include="DesignDetails.txt" />
     <Text Include="FeaturesAndVersions.txt" />
     <Text Include="PropertyTree.txt" />
+    <Text Include="TimeFormat.txt" />
     <Text Include="TrashBin.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

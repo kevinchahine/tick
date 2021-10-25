@@ -66,6 +66,12 @@
     <ClCompile Include="DeviceManagerBase.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Duration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestPropertyTree.h">
@@ -104,6 +110,12 @@
     <ClInclude Include="DeviceManagerBase.h">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Duration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CommandExamples.txt">
@@ -119,6 +131,9 @@
       <Filter>Notes</Filter>
     </Text>
     <Text Include="PropertyTree.txt">
+      <Filter>Notes</Filter>
+    </Text>
+    <Text Include="TimeFormat.txt">
       <Filter>Notes</Filter>
     </Text>
   </ItemGroup>

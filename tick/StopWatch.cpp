@@ -144,10 +144,13 @@ namespace tick
 	std::ostream & operator<<(std::ostream & os, const StopWatch & sw)
 	{
 		nanoseconds elapsed = sw.elapsed();
-		minutes min = duration_cast<minutes>(elapsed);
-		seconds sec = duration_cast<seconds>(elapsed) - min;
+		hours hrs = duration_cast<hours>(elapsed);
+		minutes min = duration_cast<minutes>(elapsed) - hrs;
+		seconds sec = duration_cast<seconds>(elapsed) - hrs - min;
 
 		stringstream ss;
+
+		ss << hrs.count() << ':';
 
 		ss << min.count() << ':';
 		

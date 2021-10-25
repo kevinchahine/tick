@@ -1,0 +1,12 @@
+Durations
+	Syntax						Examples
+	HH:MM:SS					01:59:59
+	DD - HH:MM:SS				4 - 01:59:59.999
+	
+	# Order is irrelevant.
+	# Terms can be mixed and matched, but can't be duplicated
+	<ss>s						59s
+	<mm>m <ss>s					59m 59s
+	<hh>h <mm>m <ss>s			1h 59m 59s
+	<dd>d <hh>h <mm>m <ss>s		4d 23h 59m 59s
+

@@ -5,6 +5,7 @@ v1.0
 	Supports command line interface
 	multiple timers
 	multiple stopwatches
+	save/load from file on each command
 
 v2.0
 
