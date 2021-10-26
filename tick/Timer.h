@@ -16,6 +16,8 @@ namespace tick
 
 		virtual void stop() override;
 
+		virtual void subtract(const std::chrono::nanoseconds& dur) override;
+
 		bool is_paused() const { return state == STATE::PAUSED; }
 
 		bool is_resumed() const { return state == STATE::RESUMED; }

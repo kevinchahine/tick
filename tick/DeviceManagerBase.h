@@ -2,6 +2,7 @@
 
 #include "DeviceBase.h"
 
+#include <chrono>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -37,6 +38,9 @@ namespace tick
 		void stop(const std::string& name);
 		void stopAll();
 
+		void subtract(const std::string& name, const std::chrono::nanoseconds & dur);
+		void subtractAll(const std::chrono::nanoseconds& dur);
+		
 		void set(const std::string& name, int whatGoesHere);
 		void setAll(int whatGoesHere);
 

@@ -38,6 +38,11 @@ namespace tick
 		}
 	}
 
+	void Timer::subtract(const std::chrono::nanoseconds& dur)
+	{
+		expiry -= dur;
+	}
+
 	bool Timer::is_expired() const
 	{
 		return expires_from_now().count() > 0;

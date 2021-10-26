@@ -15,9 +15,11 @@ namespace tick
 		// Sets elapsed time to the one specified and pauses clock
 		void reset(std::chrono::nanoseconds elapsedTime = std::chrono::nanoseconds(0));
 
-		void stop();
+		virtual void stop() override;
 
-		void start();
+		virtual void start() override;
+
+		virtual void subtract(const std::chrono::nanoseconds& dur) override;
 
 		bool is_paused() const { return state == STATE::PAUSED; }
 

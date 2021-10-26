@@ -43,6 +43,25 @@ namespace tick
 		}
 	}
 
+	void DeviceManagerBase::subtract(const std::string& name, const std::chrono::nanoseconds& dur)
+	{
+		// Look for a device that matches 'name'
+		auto it = this->find(name);
+
+		// Did we find a matching device?
+		if (it != this->end()) {
+			// Yes. Lets subtract its duration.
+			it->second->subtract(dur);
+		}
+	}
+
+	void DeviceManagerBase::subtractAll(const std::chrono::nanoseconds& dur)
+	{
+		for (const auto& it : *this) {
+			it.second->subtract(dur);
+		}
+	}
+
 	boost::property_tree::ptree DeviceManagerBase::serialize() const
 	{
 		pt::ptree tree;

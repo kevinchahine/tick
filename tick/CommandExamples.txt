@@ -20,6 +20,9 @@ set stopwatch[s] <name>+ <duration>
 set alarm[s] <name>+ <time of day | date>
 set worldclock[s] <name>+ <time of day>
 
+# ----------------- SUBTRACT ----------
+subtract stopwatch[s] <name>+ <duration>
+
 # ----------------- REMOVE ------------
 # --- Deactivates device and stores in trashbin ---
 remove|rm timer <name>+
@@ -65,7 +68,7 @@ wc	worldclock
 
 ------------------ Reserved Keywords ---------
 commands:
-	tick, make, start, stop, show
+	tick, make, start, stop, show, add, subtract, sub, 
 
 devices:
 	timer, stopwatch, alarm, worldclock

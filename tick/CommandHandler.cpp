@@ -81,6 +81,9 @@ namespace tick
 		else if (second == "stop") {
 			handleStop(begin + 1, end);
 		}
+		else if (second == "subtract") {
+			handleSubtract(begin + 1, end);
+		}
 		else if (second == "set") {
 			handleSet(begin + 1, end);
 		}
@@ -185,6 +188,43 @@ namespace tick
 				// One or more device names given
 				for (auto it = begin + 1; it != end; ++it) {
 					man.stop(*it);
+				}
+			}
+		}
+	}
+
+	void CommandHandler::handleSubtract(const std::vector<std::string>::const_iterator begin, const std::vector<std::string>::const_iterator end)
+	{
+		if (begin + 3 > end) {
+			// No arguments
+			// Nothing to do here
+			cout << "Error: Expected atleast 3 arguments: device type, device name(s) and duration.\n";
+			return;
+		}
+		else {
+			// --- We need to have atleast 3 parameters ---
+			//	1 device type,
+			//	0 or more device names,
+			//	1 duration
+
+			// --- Determine the Device Type ---
+			string device = *begin;
+			boost::algorithm::to_lower(device);
+
+			// --- Last element should be the duration ---
+			const string & timeStr = *(end - 1);
+			
+			chrono::seconds dur(stoi(timeStr));
+
+			DeviceManagerBase& man = devicesPtr->getManager(device);
+			if (begin + 2 == end) {
+				// No device names given. Have manager pick a name automatically
+				man.subtractAll(dur);
+			}
+			else {
+				// One or more device names given
+				for (auto it = begin + 1; it != end - 1; ++it) {
+					man.subtract(*it, dur);
 				}
 			}
 		}

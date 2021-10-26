@@ -65,6 +65,10 @@ namespace tick
 			const std::vector<std::string>::const_iterator begin,
 			const std::vector<std::string>::const_iterator end);
 		
+		void handleSubtract(
+			const std::vector<std::string>::const_iterator begin,
+			const std::vector<std::string>::const_iterator end);
+
 		void handleSet(
 			const std::vector<std::string>::const_iterator begin,
 			const std::vector<std::string>::const_iterator end);

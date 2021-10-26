@@ -39,6 +39,11 @@ namespace tick
 		}
 	}
 
+	void StopWatch::subtract(const chrono::nanoseconds& dur)
+	{
+		m_elapsed -= dur;
+	}
+
 	std::chrono::nanoseconds StopWatch::elapsed() const
 	{
 		switch (state)
